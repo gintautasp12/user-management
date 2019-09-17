@@ -4,9 +4,26 @@ namespace ManagementBundle\Serializer;
 
 class Serializer
 {
-    public function serialize($entity, NormalizerInterface $normalizer)
+    private $arrayNormalizer;
+
+    public function __construct(ArrayNormalizer $arrayNormalizer)
+    {
+        $this->arrayNormalizer = $arrayNormalizer;
+    }
+
+    public function serialize($entity, NormalizerInterface $normalizer): string
     {
         return json_encode($normalizer->normalize($entity));
+    }
+
+    public function serializeCollection(array $collection, NormalizerInterface $normalizer)
+    {
+        return json_encode(
+            $this->arrayNormalizer->mapFromArray(
+                $collection,
+                $normalizer
+            )
+        );
     }
 
     public function deserialize(string $jsonString, DenormalizerInterface $denormalizer)
