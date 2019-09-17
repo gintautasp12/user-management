@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+        https://symfony.com/schema/routing/routing-1.0.xsd">
+    <route id="rest.teams_post" path="/teams" methods="post">
+        <default key="_controller">management.controller_rest.rest_team_controller:createAction</default>
+    </route>
+    <route id="rest.teams_get" path="/teams" methods="get">
+        <default key="_controller">management.controller_rest.rest_team_controller:listAction</default>
+    </route>
+</routes>
