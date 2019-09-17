@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="management.serializer.team_normalizer" class="ManagementBundle\Serializer\TeamNormalizer">
+            <argument type="service" id="management.serializer.array_normalizer"/>
+            <argument type="service" id="management.serializer.user_normalizer"/>
+        </service>
+        <service id="management.serializer.array_normalizer" class="ManagementBundle\Serializer\ArrayNormalizer"/>
+        <service id="management.serializer.user_normalizer" class="ManagementBundle\Serializer\UserNormalizer"/>
+    </services>
+</container>
