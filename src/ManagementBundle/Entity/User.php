@@ -32,7 +32,7 @@ class User
         return $this->name;
     }
 
-    public function getTeams(): ?Team
+    public function getTeams(): ?array
     {
         return $this->teams ? $this->teams->toArray() : null;
     }
