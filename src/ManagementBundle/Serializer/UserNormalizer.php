@@ -8,7 +8,10 @@ class UserNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     public function denormalize(array $data)
     {
-        // TODO: Implement denormalize() method.
+        $user = new User();
+        $user->setName($data['name']);
+
+        return $user;
     }
 
     /**
