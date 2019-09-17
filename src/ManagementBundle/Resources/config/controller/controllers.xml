@@ -13,5 +13,13 @@
             <argument type="service" id="management.serializer.array_normalizer"/>
             <argument type="service" id="management.serializer.serializer"/>
         </service>
+        <service id="management.controller_rest.rest_user_controller"
+                 class="ManagementBundle\Controller\REST\RestUserController" public="true">
+            <tag name="controller.service_arguments"/>
+            <argument type="service" id="management.serializer.serializer"/>
+            <argument type="service" id="management.serializer.user_normalizer"/>
+            <argument type="service" id="management.repository.user_repository"/>
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+        </service>
     </services>
 </container>

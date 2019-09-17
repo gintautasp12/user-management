@@ -8,5 +8,9 @@
             <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
             <argument>ManagementBundle:Team</argument>
         </service>
+        <service id="management.repository.user_repository" class="Doctrine\ORM\EntityRepository">
+            <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
+            <argument>ManagementBundle:User</argument>
+        </service>
     </services>
 </container>
