@@ -34,7 +34,7 @@ class User
 
     public function getTeams(): ?Team
     {
-        return $this->teams->toArray();
+        return $this->teams ? $this->teams->toArray() : null;
     }
 
     public function addToTeam(Team $team)
