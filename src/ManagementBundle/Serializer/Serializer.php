@@ -13,17 +13,16 @@ class Serializer
 
     public function serialize($entity, NormalizerInterface $normalizer): string
     {
-        return json_encode($normalizer->normalize($entity));
+        return json_encode([
+            'data' => $normalizer->normalize($entity)
+        ]);
     }
 
     public function serializeCollection(array $collection, NormalizerInterface $normalizer)
     {
-        return json_encode(
-            $this->arrayNormalizer->mapFromArray(
-                $collection,
-                $normalizer
-            )
-        );
+        return json_encode([
+            'data' => $this->arrayNormalizer->mapFromArray($collection, $normalizer)
+        ]);
     }
 
     public function deserialize(string $jsonString, DenormalizerInterface $denormalizer)
