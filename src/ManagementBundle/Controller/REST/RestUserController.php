@@ -50,4 +50,17 @@ class RestUserController
             Response::HTTP_CREATED
         );
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function listAction()
+    {
+        $users = $this->userRepository->findAll();
+
+        return JsonResponse::fromJsonString(
+            $this->serializer->serializeCollection($users, $this->userNormalizer),
+            Response::HTTP_OK
+        );
+    }
 }
