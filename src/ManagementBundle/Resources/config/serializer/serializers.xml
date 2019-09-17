@@ -10,5 +10,6 @@
         </service>
         <service id="management.serializer.array_normalizer" class="ManagementBundle\Serializer\ArrayNormalizer"/>
         <service id="management.serializer.user_normalizer" class="ManagementBundle\Serializer\UserNormalizer"/>
+        <service id="management.serializer.serializer" class="ManagementBundle\Serializer\Serializer"/>
     </services>
 </container>
