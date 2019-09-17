@@ -36,7 +36,7 @@ class RestTeamController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -49,7 +49,7 @@ class RestTeamController
         $this->entityManager->flush();
         $this->teamRepository->find($team);
 
-        return new Response(
+        return JsonResponse::fromJsonString(
             $this->serializer->serialize($team, $this->teamNormalizer),
             Response::HTTP_CREATED
         );
@@ -60,11 +60,11 @@ class RestTeamController
      */
     public function listAction()
     {
-        $teams = $this->arrayNormalizer->mapFromArray(
+        $teams = $this->serializer->serializeCollection(
             $this->teamRepository->findAll(),
             $this->teamNormalizer
         );
 
-        return new JsonResponse($teams, Response::HTTP_OK);
+        return JsonResponse::fromJsonString($teams, Response::HTTP_OK);
     }
 }
