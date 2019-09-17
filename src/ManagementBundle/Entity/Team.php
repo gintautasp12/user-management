@@ -54,4 +54,10 @@ class Team
         $this->users->add($user);
         $user->addToTeam($this);
     }
+
+    public function removeUser(User $user)
+    {
+        $this->users->remove($user);
+        $user->removeFromTeam($this);
+    }
 }

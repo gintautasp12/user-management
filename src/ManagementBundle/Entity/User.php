@@ -41,4 +41,9 @@ class User
     {
         $this->teams->add($team);
     }
+
+    public function removeFromTeam(Team $team)
+    {
+        $this->teams->remove($team);
+    }
 }
