@@ -42,4 +42,8 @@
         <default key="_controller">management.controller_rest.rest_user_controller:individualListAction</default>
         <requirement key="id">\d+</requirement>
     </route>
+    <route id="rest.teams_users_get" path="/users/{id}/teams" methods="get">
+        <default key="_controller">management.controller_rest.rest_user_controller:listTeamsAction</default>
+        <requirement key="id">\d+</requirement>
+    </route>
 </routes>

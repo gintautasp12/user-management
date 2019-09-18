@@ -3,9 +3,12 @@
 namespace ManagementBundle\Controller\REST;
 
 use Doctrine\ORM\EntityManager;
+use ManagementBundle\Entity\User;
 use ManagementBundle\Http\RestErrorResponse;
 use ManagementBundle\Repository\UserRepository;
+use ManagementBundle\Serializer\ArrayNormalizer;
 use ManagementBundle\Serializer\Serializer;
+use ManagementBundle\Serializer\TeamNormalizer;
 use ManagementBundle\Serializer\UserNormalizer;
 use ManagementBundle\Validator\EntityValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,13 +22,17 @@ class RestUserController
     private $userRepository;
     private $entityManager;
     private $validator;
+    private $arrayNormalizer;
+    private $teamNormalizer;
 
     public function __construct(
         Serializer $serializer,
         UserNormalizer $userNormalizer,
         UserRepository $userRepository,
         EntityManager $entityManager,
-        EntityValidator $validator
+        EntityValidator $validator,
+        ArrayNormalizer $arrayNormalizer,
+        TeamNormalizer $teamNormalizer
     )
     {
         $this->serializer = $serializer;
@@ -33,6 +40,8 @@ class RestUserController
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
         $this->validator = $validator;
+        $this->arrayNormalizer = $arrayNormalizer;
+        $this->teamNormalizer = $teamNormalizer;
     }
 
     /**
@@ -69,6 +78,25 @@ class RestUserController
 
         return JsonResponse::fromJsonString(
             $this->serializer->serializeCollection($users, $this->userNormalizer),
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     * @param int $id
+     * @return RestErrorResponse|JsonResponse
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function listTeamsAction(int $id)
+    {
+        /** @var User $user */
+        $user = $this->userRepository->findOneById($id);
+        if ($user === null) {
+            return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
+        }
+
+        return new JsonResponse(
+            $this->arrayNormalizer->mapFromArray($user->getTeams(), $this->teamNormalizer),
             Response::HTTP_OK
         );
     }
