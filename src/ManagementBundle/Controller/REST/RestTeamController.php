@@ -3,6 +3,7 @@
 namespace ManagementBundle\Controller\REST;
 
 use Doctrine\ORM\EntityManager;
+use ManagementBundle\Entity\Team;
 use ManagementBundle\Repository\TeamRepository;
 use ManagementBundle\Serializer\ArrayNormalizer;
 use ManagementBundle\Serializer\Serializer;
@@ -66,5 +67,32 @@ class RestTeamController
         );
 
         return JsonResponse::fromJsonString($teams, Response::HTTP_OK);
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function deleteAction(int $id)
+    {
+        /** @var Team $team */
+        $team = $this->teamRepository->findOneBy(['id' => $id]);
+        if ($team === null) {
+            return new JsonResponse(['error' => [
+                'message' => 'Such team does not exist'
+            ]], Response::HTTP_NOT_FOUND);
+        }
+
+        if (count($team->getUsers()) !== 0) {
+            return new JsonResponse(['error' => [
+                'message' => 'This team contains members'
+            ]], Response::HTTP_METHOD_NOT_ALLOWED);
+        }
+
+        $this->entityManager->remove($team);
+        $this->entityManager->flush();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }

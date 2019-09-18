@@ -9,6 +9,10 @@
     <route id="rest.teams_get" path="/teams" methods="get">
         <default key="_controller">management.controller_rest.rest_team_controller:listAction</default>
     </route>
+    <route id="rest.teams_delete" path="/teams/{id}" methods="delete">
+        <default key="_controller">management.controller_rest.rest_team_controller:deleteAction</default>
+        <requirement key="id">\d+</requirement>
+    </route>
 
     <route id="rest.users_post" path="/users" methods="post">
         <default key="_controller">management.controller_rest.rest_user_controller:createAction</default>
