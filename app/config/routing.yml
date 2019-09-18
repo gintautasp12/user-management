@@ -1,4 +1,3 @@
 app:
-    prefix: 'rest/v1'
     resource: '@ManagementBundle/Resources/config/routing.xml'
     type: xml
