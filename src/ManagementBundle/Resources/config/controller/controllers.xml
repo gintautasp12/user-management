@@ -3,24 +3,14 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <imports>
+        <import resource="rest/v1/controllers.xml"/>
+    </imports>
+
     <services>
-        <service id="management.controller_rest.rest_team_controller"
-                 class="ManagementBundle\Controller\REST\RestTeamController" public="true">
+        <service id="management.controller.auth_controller" class="ManagementBundle\Controller\AuthController"
+                 public="true">
             <tag name="controller.service_arguments"/>
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="management.serializer.team_normalizer"/>
-            <argument type="service" id="management.serializer.array_normalizer"/>
-            <argument type="service" id="management.serializer.serializer"/>
-            <argument type="service" id="management.validator.entity_validator"/>
-        </service>
-        <service id="management.controller_rest.rest_user_controller"
-                 class="ManagementBundle\Controller\REST\RestUserController" public="true">
-            <tag name="controller.service_arguments"/>
-            <argument type="service" id="management.serializer.serializer"/>
-            <argument type="service" id="management.serializer.user_normalizer"/>
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="management.validator.entity_validator"/>
-            <argument type="service" id="management.serializer.team_normalizer"/>
         </service>
     </services>
 </container>
