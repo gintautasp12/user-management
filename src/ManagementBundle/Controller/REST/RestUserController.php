@@ -22,7 +22,6 @@ class RestUserController
     private $userRepository;
     private $entityManager;
     private $validator;
-    private $arrayNormalizer;
     private $teamNormalizer;
 
     public function __construct(
@@ -31,7 +30,6 @@ class RestUserController
         UserRepository $userRepository,
         EntityManager $entityManager,
         EntityValidator $validator,
-        ArrayNormalizer $arrayNormalizer,
         TeamNormalizer $teamNormalizer
     )
     {
@@ -40,7 +38,6 @@ class RestUserController
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
         $this->validator = $validator;
-        $this->arrayNormalizer = $arrayNormalizer;
         $this->teamNormalizer = $teamNormalizer;
     }
 
@@ -95,8 +92,8 @@ class RestUserController
             return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
 
-        return new JsonResponse(
-            $this->arrayNormalizer->mapFromArray($user->getTeams(), $this->teamNormalizer),
+        return JsonResponse::fromJsonString(
+            $this->serializer->serializeCollection($user->getTeams(), $this->teamNormalizer),
             Response::HTTP_OK
         );
     }
