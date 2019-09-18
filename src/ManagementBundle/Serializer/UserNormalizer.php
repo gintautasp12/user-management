@@ -21,7 +21,8 @@ class UserNormalizer implements NormalizerInterface, DenormalizerInterface
     {
         return [
             'id' => $user->getId(),
-            'name' => $user->getName()
+            'name' => $user->getName(),
+            'href' => sprintf("/rest/v1/users/%d", $user->getId())
         ];
     }
 }

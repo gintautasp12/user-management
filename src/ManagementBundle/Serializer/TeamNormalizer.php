@@ -31,6 +31,7 @@ class TeamNormalizer implements NormalizerInterface, DenormalizerInterface
         return [
             'id' => $team->getId(),
             'title' => $team->getTitle(),
+            'href' => sprintf("/rest/v1/teams/%d", $team->getId()),
             'users' => $this->arrayNormalizer->mapFromArray($team->getUsers(), $this->userNormalizer)
         ];
     }
