@@ -3,12 +3,16 @@
 namespace ManagementBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Serializable;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class User
+class User implements UserInterface, Serializable
 {
     private $id;
     private $name;
     private $teams;
+    private $password;
+    private $username;
 
     public function __construct()
     {
@@ -45,5 +49,61 @@ class User
     public function removeFromTeam(Team $team)
     {
         $this->teams->removeElement($team);
+    }
+
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->password,
+        ]);
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 }

@@ -6,6 +6,8 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="name" column="name" length="255"/>
+    <field name="username" length="255" nullable="true"/>
+    <field name="password" length="255" nullable="true"/>
     <many-to-many field="teams" target-entity="ManagementBundle\Entity\Team" mapped-by="users"/>
   </entity>
 </doctrine-mapping>
