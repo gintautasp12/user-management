@@ -28,4 +28,8 @@
         <default key="_controller">management.controller_rest.rest_user_controller:deleteAction</default>
         <requirement key="id">\d+</requirement>
     </route>
+    <route id="rest.users_get" path="/users/{id}" methods="get">
+        <default key="_controller">management.controller_rest.rest_user_controller:individualListAction</default>
+        <requirement key="id">\d+</requirement>
+    </route>
 </routes>

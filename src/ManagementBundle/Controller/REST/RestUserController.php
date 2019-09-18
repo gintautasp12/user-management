@@ -81,6 +81,25 @@ class RestUserController
         $this->entityManager->remove($user);
         $this->entityManager->flush();
 
-        return new JsonResponse([],Response::HTTP_NO_CONTENT);
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function individualListAction(int $id)
+    {
+        $user = $this->userRepository->findOneBy(['id' => $id]);
+        if ($user === null) {
+            return new JsonResponse(['error' => [
+                'message' => 'Such user does not exist.'
+            ]], Response::HTTP_NOT_FOUND);
+        }
+
+        return JsonResponse::fromJsonString(
+            $this->serializer->serialize($user, $this->userNormalizer),
+            Response::HTTP_OK
+        );
     }
 }
