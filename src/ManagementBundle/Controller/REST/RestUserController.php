@@ -5,7 +5,6 @@ namespace ManagementBundle\Controller\REST;
 use Doctrine\ORM\EntityManager;
 use ManagementBundle\Entity\User;
 use ManagementBundle\Http\RestErrorResponse;
-use ManagementBundle\Repository\UserRepository;
 use ManagementBundle\Serializer\Serializer;
 use ManagementBundle\Serializer\TeamNormalizer;
 use ManagementBundle\Serializer\UserNormalizer;
