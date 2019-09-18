@@ -8,4 +8,10 @@
         <import resource="serializer/serializers.xml"/>
         <import resource="controller/controllers.xml"/>
     </imports>
+
+    <services>
+        <service id="management.validator.validator" class="ManagementBundle\Validator\Validator">
+            <argument type="service" id="validator"/>
+        </service>
+    </services>
 </container>

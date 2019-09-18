@@ -11,9 +11,11 @@ use ManagementBundle\Repository\UserRepository;
 use ManagementBundle\Serializer\ArrayNormalizer;
 use ManagementBundle\Serializer\Serializer;
 use ManagementBundle\Serializer\TeamNormalizer;
+use ManagementBundle\Validator\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 class RestTeamController
 {
@@ -23,6 +25,7 @@ class RestTeamController
     private $arrayNormalizer;
     private $serializer;
     private $userRepository;
+    private $validator;
 
     public function __construct(
         EntityManager $entityManager,
@@ -30,7 +33,8 @@ class RestTeamController
         TeamRepository $teamRepository,
         ArrayNormalizer $arrayNormalizer,
         Serializer $serializer,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        Validator $validator
     )
     {
         $this->entityManager = $entityManager;
@@ -39,6 +43,7 @@ class RestTeamController
         $this->arrayNormalizer = $arrayNormalizer;
         $this->serializer = $serializer;
         $this->userRepository = $userRepository;
+        $this->validator = $validator;
     }
 
     /**
@@ -51,6 +56,11 @@ class RestTeamController
     {
         $requestData = $request->getContent();
         $team = $this->serializer->deserialize($requestData, $this->teamNormalizer);
+
+        $violations = $this->validator->validate($team);
+        if (count($violations) > 0) {
+            return new JsonResponse($violations, Response::HTTP_BAD_REQUEST);
+        }
 
         $this->entityManager->persist($team);
         $this->entityManager->flush();

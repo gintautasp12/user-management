@@ -13,6 +13,7 @@
             <argument type="service" id="management.serializer.array_normalizer"/>
             <argument type="service" id="management.serializer.serializer"/>
             <argument type="service" id="management.repository.user_repository"/>
+            <argument type="service" id="management.validator.validator"/>
         </service>
         <service id="management.controller_rest.rest_user_controller"
                  class="ManagementBundle\Controller\REST\RestUserController" public="true">
