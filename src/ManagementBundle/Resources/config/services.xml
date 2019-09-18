@@ -5,7 +5,7 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
         <import resource="parameters.xml"/>
-        <import resource="repositories.xml"/>
+        <import resource="doctrine/repositories.xml"/>
         <import resource="serializer/serializers.xml"/>
         <import resource="controller/controllers.xml"/>
     </imports>
