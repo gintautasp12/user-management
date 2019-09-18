@@ -63,4 +63,24 @@ class RestUserController
             Response::HTTP_OK
         );
     }
+
+    /**
+     * @return JsonResponse
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function deleteAction(int $id)
+    {
+        $user = $this->userRepository->findOneBy(['id' => $id]);
+        if ($user == null) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => 'Such user does not exist'
+                ]
+            ], Response::HTTP_NOT_FOUND);
+        }
+        $this->entityManager->remove($user);
+        $this->entityManager->flush();
+
+        return new JsonResponse([],Response::HTTP_NO_CONTENT);
+    }
 }
