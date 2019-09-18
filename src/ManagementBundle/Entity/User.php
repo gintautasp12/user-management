@@ -13,10 +13,12 @@ class User implements UserInterface, Serializable
     private $teams;
     private $password;
     private $username;
+    private $roles;
 
     public function __construct()
     {
         $this->teams = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
 
     public function getId(): int
@@ -51,9 +53,16 @@ class User implements UserInterface, Serializable
         $this->teams->removeElement($team);
     }
 
-    public function getRoles(): array
+    public function getRoles()
     {
-        return ['ROLE_USER'];
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getPassword(): ?string
