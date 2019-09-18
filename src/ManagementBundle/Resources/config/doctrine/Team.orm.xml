@@ -5,7 +5,7 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="title" column="title" length="255" unique="true"/>
+    <field name="title" column="title" length="255"/>
     <many-to-many field="users" target-entity="ManagementBundle\Entity\User" inversed-by="teams">
       <join-table name="teams_users">
         <join-columns>
