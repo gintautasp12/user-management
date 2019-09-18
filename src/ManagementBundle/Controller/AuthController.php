@@ -17,4 +17,13 @@ class AuthController extends Controller
             'error' => $error
         ]);
     }
+
+    public function adminPageAction()
+    {
+        return $this->render('admin/admin.html.twig');
+    }
+
+    public function logoutAction()
+    {
+    }
 }

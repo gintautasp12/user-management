@@ -3,7 +3,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing
         https://symfony.com/schema/routing/routing-1.0.xsd">
-    <route id="management.auth" path="/">
+    <route id="management.login" path="/">
         <default key="_controller">management.controller.auth_controller:indexAction</default>
+    </route>
+    <route id="management.admin" path="/admin">
+        <default key="_controller">management.controller.auth_controller:adminPageAction</default>
+    </route>
+    <route id="management.logout" path="/logout">
+        <default key="_controller">management.controller.auth_controller:logoutAction</default>
     </route>
 </routes>
