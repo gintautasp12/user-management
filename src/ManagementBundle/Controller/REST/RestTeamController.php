@@ -54,7 +54,6 @@ class RestTeamController
 
         $this->entityManager->persist($team);
         $this->entityManager->flush();
-        $this->teamRepository->find($team);
 
         return JsonResponse::fromJsonString(
             $this->serializer->serialize($team, $this->teamNormalizer),

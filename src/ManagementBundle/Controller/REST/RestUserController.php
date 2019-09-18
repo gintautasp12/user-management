@@ -44,7 +44,6 @@ class RestUserController
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-        $this->userRepository->find($user);
 
         return JsonResponse::fromJsonString(
             $this->serializer->serialize($user, $this->userNormalizer),
