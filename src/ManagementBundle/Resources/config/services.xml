@@ -13,5 +13,9 @@
         <service id="management.validator.entity_validator" class="ManagementBundle\Validator\EntityValidator">
             <argument type="service" id="validator"/>
         </service>
+        <service id="management.data_fixtures.app_fixtures" class="ManagementBundle\DataFixtures\AppFixtures">
+            <tag name="doctrine.fixture.orm"/>
+            <argument type="service" id="security.password_encoder"/>
+        </service>
     </services>
 </container>
