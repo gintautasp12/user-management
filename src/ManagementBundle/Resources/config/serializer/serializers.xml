@@ -7,9 +7,12 @@
         <service id="management.serializer.team_normalizer" class="ManagementBundle\Serializer\TeamNormalizer">
             <argument type="service" id="management.serializer.array_normalizer"/>
             <argument type="service" id="management.serializer.user_normalizer"/>
+            <argument>%rest.teams_get%</argument>
         </service>
         <service id="management.serializer.array_normalizer" class="ManagementBundle\Serializer\ArrayNormalizer"/>
-        <service id="management.serializer.user_normalizer" class="ManagementBundle\Serializer\UserNormalizer"/>
+        <service id="management.serializer.user_normalizer" class="ManagementBundle\Serializer\UserNormalizer">
+            <argument>%rest.users_get%</argument>
+        </service>
         <service id="management.serializer.serializer" class="ManagementBundle\Serializer\Serializer">
             <argument type="service" id="management.serializer.array_normalizer"/>
         </service>

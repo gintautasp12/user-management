@@ -8,11 +8,17 @@ class TeamNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     private $arrayNormalizer;
     private $userNormalizer;
+    private $baseHref;
 
-    public function __construct(ArrayNormalizer $arrayNormalizer, UserNormalizer $userNormalizer)
+    public function __construct(
+        ArrayNormalizer $arrayNormalizer,
+        UserNormalizer $userNormalizer,
+        string $baseHref
+    )
     {
         $this->arrayNormalizer = $arrayNormalizer;
         $this->userNormalizer = $userNormalizer;
+        $this->baseHref = $baseHref;
     }
 
     public function denormalize(array $requestData)
@@ -31,7 +37,7 @@ class TeamNormalizer implements NormalizerInterface, DenormalizerInterface
         return [
             'id' => $team->getId(),
             'title' => $team->getTitle(),
-            'href' => sprintf("/rest/v1/teams/%d", $team->getId()),
+            'href' => sprintf("%s/%d", $this->baseHref, $team->getId()),
             'users' => $this->arrayNormalizer->mapFromArray($team->getUsers(), $this->userNormalizer)
         ];
     }
