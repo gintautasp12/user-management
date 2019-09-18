@@ -14,4 +14,14 @@
             </constraint>
         </property>
     </class>
+
+    <class name="ManagementBundle\Entity\User">
+        <property name="name">
+            <constraint name="NotBlank"/>
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">255</option>
+            </constraint>
+        </property>
+    </class>
 </constraint-mapping>

@@ -7,6 +7,7 @@ use ManagementBundle\Http\RestErrorResponse;
 use ManagementBundle\Repository\UserRepository;
 use ManagementBundle\Serializer\Serializer;
 use ManagementBundle\Serializer\UserNormalizer;
+use ManagementBundle\Validator\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,18 +18,21 @@ class RestUserController
     private $userNormalizer;
     private $userRepository;
     private $entityManager;
+    private $validator;
 
     public function __construct(
         Serializer $serializer,
         UserNormalizer $userNormalizer,
         UserRepository $userRepository,
-        EntityManager $entityManager
+        EntityManager $entityManager,
+        Validator $validator
     )
     {
         $this->serializer = $serializer;
         $this->userNormalizer = $userNormalizer;
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
+        $this->validator = $validator;
     }
 
     /**
@@ -41,6 +45,11 @@ class RestUserController
     {
         $requestData = $request->getContent();
         $user = $this->serializer->deserialize($requestData, $this->userNormalizer);
+
+        $violations = $this->validator->validate($user);
+        if (count($violations) > 0) {
+            return new JsonResponse($violations, Response::HTTP_BAD_REQUEST);
+        }
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();

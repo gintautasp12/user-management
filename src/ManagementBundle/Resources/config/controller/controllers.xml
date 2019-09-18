@@ -22,6 +22,7 @@
             <argument type="service" id="management.serializer.user_normalizer"/>
             <argument type="service" id="management.repository.user_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="management.validator.validator"/>
         </service>
     </services>
 </container>
