@@ -11,7 +11,7 @@ use ManagementBundle\Repository\UserRepository;
 use ManagementBundle\Serializer\ArrayNormalizer;
 use ManagementBundle\Serializer\Serializer;
 use ManagementBundle\Serializer\TeamNormalizer;
-use ManagementBundle\Validator\Validator;
+use ManagementBundle\Validator\EntityValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +34,7 @@ class RestTeamController
         ArrayNormalizer $arrayNormalizer,
         Serializer $serializer,
         UserRepository $userRepository,
-        Validator $validator
+        EntityValidator $validator
     )
     {
         $this->entityManager = $entityManager;

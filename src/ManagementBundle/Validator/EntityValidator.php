@@ -2,12 +2,10 @@
 
 namespace ManagementBundle\Validator;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\TraceableValidator;
 
-class Validator extends TraceableValidator
+class EntityValidator extends TraceableValidator
 {
     public function validate($value, $constraints = null, $groups = null)
     {

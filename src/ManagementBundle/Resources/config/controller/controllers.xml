@@ -13,7 +13,7 @@
             <argument type="service" id="management.serializer.array_normalizer"/>
             <argument type="service" id="management.serializer.serializer"/>
             <argument type="service" id="management.repository.user_repository"/>
-            <argument type="service" id="management.validator.validator"/>
+            <argument type="service" id="management.validator.entity_validator"/>
         </service>
         <service id="management.controller_rest.rest_user_controller"
                  class="ManagementBundle\Controller\REST\RestUserController" public="true">
@@ -22,7 +22,7 @@
             <argument type="service" id="management.serializer.user_normalizer"/>
             <argument type="service" id="management.repository.user_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="management.validator.validator"/>
+            <argument type="service" id="management.validator.entity_validator"/>
         </service>
     </services>
 </container>

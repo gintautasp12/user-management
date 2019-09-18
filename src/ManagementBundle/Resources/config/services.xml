@@ -10,7 +10,7 @@
     </imports>
 
     <services>
-        <service id="management.validator.validator" class="ManagementBundle\Validator\Validator">
+        <service id="management.validator.entity_validator" class="ManagementBundle\Validator\EntityValidator">
             <argument type="service" id="validator"/>
         </service>
     </services>

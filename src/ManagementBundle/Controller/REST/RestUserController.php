@@ -7,7 +7,7 @@ use ManagementBundle\Http\RestErrorResponse;
 use ManagementBundle\Repository\UserRepository;
 use ManagementBundle\Serializer\Serializer;
 use ManagementBundle\Serializer\UserNormalizer;
-use ManagementBundle\Validator\Validator;
+use ManagementBundle\Validator\EntityValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +25,7 @@ class RestUserController
         UserNormalizer $userNormalizer,
         UserRepository $userRepository,
         EntityManager $entityManager,
-        Validator $validator
+        EntityValidator $validator
     )
     {
         $this->serializer = $serializer;
