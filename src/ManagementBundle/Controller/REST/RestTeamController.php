@@ -114,4 +114,35 @@ class RestTeamController
             Response::HTTP_OK
         );
     }
+
+    /**
+     * @param int $teamId
+     * @param int $userId
+     * @return JsonResponse
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function removeFromTeamAction(int $teamId, int $userId)
+    {
+        /** @var Team $team */
+        $team = $this->teamRepository->findOneBy(['id' => $teamId]);
+        if ($team === null) {
+            return new JsonResponse(['error' => [
+                'message' => 'Such team does not exist.'
+            ]], Response::HTTP_NOT_FOUND);
+        }
+
+        $user = $this->teamRepository->findUserById($userId);
+        if ($user === null) {
+            return new JsonResponse(['error' => [
+                'message' => 'Such user does not exist.'
+            ]], Response::HTTP_NOT_FOUND);
+        }
+
+        $team->removeUser($user);
+
+        return JsonResponse::fromJsonString(
+            $this->serializer->serialize($team, $this->teamNormalizer),
+            Response::HTTP_OK
+        );
+    }
 }

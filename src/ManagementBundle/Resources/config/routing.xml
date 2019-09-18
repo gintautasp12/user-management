@@ -17,6 +17,11 @@
         <default key="_controller">management.controller_rest.rest_team_controller:individualListAction</default>
         <requirement key="id">\d+</requirement>
     </route>
+    <route id="rest.teams_remove_user" path="/teams/{teamId}/users/{userId}" methods="delete">
+        <default key="_controller">management.controller_rest.rest_team_controller:removeFromTeamAction</default>
+        <requirement key="teamId">\d+</requirement>
+        <requirement key="userId">\d+</requirement>
+    </route>
 
     <route id="rest.users_post" path="/users" methods="post">
         <default key="_controller">management.controller_rest.rest_user_controller:createAction</default>
