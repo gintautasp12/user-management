@@ -15,7 +15,6 @@ use ManagementBundle\Validator\EntityValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\ConstraintViolationList;
 
 class RestTeamController
 {
