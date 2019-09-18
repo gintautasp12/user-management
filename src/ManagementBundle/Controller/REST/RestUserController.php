@@ -71,7 +71,7 @@ class RestUserController
      */
     public function deleteAction(int $id)
     {
-        $user = $this->userRepository->findOneBy(['id' => $id]);
+        $user = $this->userRepository->findOneById($id);
         if ($user === null) {
             return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
@@ -84,11 +84,12 @@ class RestUserController
 
     /**
      * @param int $id
-     * @return JsonResponse
+     * @return RestErrorResponse|JsonResponse
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function individualListAction(int $id)
     {
-        $user = $this->userRepository->findOneBy(['id' => $id]);
+        $user = $this->userRepository->findOneById($id);
         if ($user === null) {
             return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }

@@ -83,7 +83,7 @@ class RestTeamController
     public function deleteAction(int $id)
     {
         /** @var Team $team */
-        $team = $this->teamRepository->findOneBy(['id' => $id]);
+        $team = $this->teamRepository->findOneById($id);
         if ($team === null) {
             return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
@@ -100,11 +100,12 @@ class RestTeamController
 
     /**
      * @param int $id
-     * @return JsonResponse
+     * @return RestErrorResponse|JsonResponse
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function individualListAction(int $id)
     {
-        $team = $this->teamRepository->findOneBy(['id' => $id]);
+        $team = $this->teamRepository->findOneById($id);
         if ($team === null) {
             return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
@@ -125,12 +126,12 @@ class RestTeamController
     public function removeFromTeamAction(int $teamId, int $userId)
     {
         /** @var Team $team */
-        $team = $this->teamRepository->findOneBy(['id' => $teamId]);
+        $team = $this->teamRepository->findOneById($teamId);
         if ($team === null) {
             return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
         /** @var User $user */
-        $user = $this->userRepository->findOneBy(['id' => $userId]);
+        $user = $this->userRepository->findOneById($userId);
         if ($user === null) {
             return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
@@ -161,13 +162,13 @@ class RestTeamController
     public function addToTeamAction(int $teamId, int $userId)
     {
         /** @var Team $team */
-        $team = $this->teamRepository->findOneBy(['id' => $teamId]);
+        $team = $this->teamRepository->findOneById($teamId);
         if ($team === null) {
             return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
 
         /** @var User $user */
-        $user = $this->userRepository->findOneBy(['id' => $userId]);
+        $user = $this->userRepository->findOneById($userId);
         if ($user === null) {
             return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
