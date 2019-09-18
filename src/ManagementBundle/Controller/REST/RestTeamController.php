@@ -6,8 +6,6 @@ use Doctrine\ORM\EntityManager;
 use ManagementBundle\Entity\Team;
 use ManagementBundle\Entity\User;
 use ManagementBundle\Http\RestErrorResponse;
-use ManagementBundle\Repository\TeamRepository;
-use ManagementBundle\Repository\UserRepository;
 use ManagementBundle\Serializer\ArrayNormalizer;
 use ManagementBundle\Serializer\Serializer;
 use ManagementBundle\Serializer\TeamNormalizer;
@@ -20,28 +18,22 @@ class RestTeamController
 {
     private $entityManager;
     private $teamNormalizer;
-    private $teamRepository;
     private $arrayNormalizer;
     private $serializer;
-    private $userRepository;
     private $validator;
 
     public function __construct(
         EntityManager $entityManager,
         TeamNormalizer $teamNormalizer,
-        TeamRepository $teamRepository,
         ArrayNormalizer $arrayNormalizer,
         Serializer $serializer,
-        UserRepository $userRepository,
         EntityValidator $validator
     )
     {
         $this->entityManager = $entityManager;
         $this->teamNormalizer = $teamNormalizer;
-        $this->teamRepository = $teamRepository;
         $this->arrayNormalizer = $arrayNormalizer;
         $this->serializer = $serializer;
-        $this->userRepository = $userRepository;
         $this->validator = $validator;
     }
 
@@ -76,7 +68,7 @@ class RestTeamController
     public function listAction()
     {
         $teams = $this->serializer->serializeCollection(
-            $this->teamRepository->findAll(),
+            $this->entityManager->getRepository('ManagementBundle:Team')->findAll(),
             $this->teamNormalizer
         );
 
@@ -91,7 +83,7 @@ class RestTeamController
     public function deleteAction(int $id)
     {
         /** @var Team $team */
-        $team = $this->teamRepository->findOneById($id);
+        $team = $this->entityManager->getRepository('ManagementBundle:Team')->findOneById($id);
         if ($team === null) {
             return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
@@ -113,7 +105,7 @@ class RestTeamController
      */
     public function individualListAction(int $id)
     {
-        $team = $this->teamRepository->findOneById($id);
+        $team = $this->entityManager->getRepository('ManagementBundle:Team')->findOneById($id);
         if ($team === null) {
             return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
@@ -134,12 +126,12 @@ class RestTeamController
     public function removeFromTeamAction(int $teamId, int $userId)
     {
         /** @var Team $team */
-        $team = $this->teamRepository->findOneById($teamId);
+        $team = $this->entityManager->getRepository('ManagementBundle:Team')->findOneById($teamId);
         if ($team === null) {
             return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
         /** @var User $user */
-        $user = $this->userRepository->findOneById($userId);
+        $user = $this->entityManager->getRepository('ManagementBundle:User')->findOneById($userId);
         if ($user === null) {
             return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
@@ -170,13 +162,13 @@ class RestTeamController
     public function addToTeamAction(int $teamId, int $userId)
     {
         /** @var Team $team */
-        $team = $this->teamRepository->findOneById($teamId);
+        $team = $this->entityManager->getRepository('ManagementBundle:Team')->findOneById($teamId);
         if ($team === null) {
             return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
 
         /** @var User $user */
-        $user = $this->userRepository->findOneById($userId);
+        $user = $this->entityManager->getRepository('ManagementBundle:User')->findOneById($userId);
         if ($user === null) {
             return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }

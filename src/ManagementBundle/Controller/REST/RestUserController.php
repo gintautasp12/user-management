@@ -18,7 +18,6 @@ class RestUserController
 {
     private $serializer;
     private $userNormalizer;
-    private $userRepository;
     private $entityManager;
     private $validator;
     private $teamNormalizer;
@@ -26,7 +25,6 @@ class RestUserController
     public function __construct(
         Serializer $serializer,
         UserNormalizer $userNormalizer,
-        UserRepository $userRepository,
         EntityManager $entityManager,
         EntityValidator $validator,
         TeamNormalizer $teamNormalizer
@@ -34,7 +32,6 @@ class RestUserController
     {
         $this->serializer = $serializer;
         $this->userNormalizer = $userNormalizer;
-        $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
         $this->validator = $validator;
         $this->teamNormalizer = $teamNormalizer;
@@ -70,7 +67,7 @@ class RestUserController
      */
     public function listAction()
     {
-        $users = $this->userRepository->findAll();
+        $users = $this->entityManager->getRepository('ManagementBundle:User')->findAll();
 
         return JsonResponse::fromJsonString(
             $this->serializer->serializeCollection($users, $this->userNormalizer),
@@ -86,7 +83,7 @@ class RestUserController
     public function listTeamsAction(int $id)
     {
         /** @var User $user */
-        $user = $this->userRepository->findOneById($id);
+        $user = $this->entityManager->getRepository('ManagementBundle:User')->findOneById($id);
         if ($user === null) {
             return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
@@ -103,7 +100,7 @@ class RestUserController
      */
     public function deleteAction(int $id)
     {
-        $user = $this->userRepository->findOneById($id);
+        $user = $this->entityManager->getRepository('ManagementBundle:User')->findOneById($id);
         if ($user === null) {
             return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
@@ -121,7 +118,7 @@ class RestUserController
      */
     public function individualListAction(int $id)
     {
-        $user = $this->userRepository->findOneById($id);
+        $user = $this->entityManager->getRepository('ManagementBundle:User')->findOneById($id);
         if ($user === null) {
             return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
