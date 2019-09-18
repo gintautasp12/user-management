@@ -147,7 +147,7 @@ class RestTeamController
         if (!in_array($user, $team->getUsers())) {
             return new JsonResponse(['error' => [
                 'message' => 'This user does not belong to this team.'
-            ]], Response::HTTP_NOT_FOUND);
+            ]], Response::HTTP_BAD_REQUEST);
         }
 
         $team->removeUser($user);
@@ -182,6 +182,12 @@ class RestTeamController
             return new JsonResponse(['error' => [
                 'message' => 'Such user does not exist.'
             ]], Response::HTTP_NOT_FOUND);
+        }
+
+        if (in_array($user, $team->getUsers())) {
+            return new JsonResponse(['error' => [
+                'message' => 'This user already belongs to this group.'
+            ]], Response::HTTP_BAD_REQUEST);
         }
 
         $team->addUser($user);
