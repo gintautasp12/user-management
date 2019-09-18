@@ -6,18 +6,22 @@
     <route id="rest.teams_post" path="/teams" methods="post">
         <default key="_controller">management.controller_rest.rest_team_controller:createAction</default>
     </route>
-    <route id="rest.teams_get" path="/teams" methods="get">
+    <route id="rest.teams_collection_get" path="/teams" methods="get">
         <default key="_controller">management.controller_rest.rest_team_controller:listAction</default>
     </route>
     <route id="rest.teams_delete" path="/teams/{id}" methods="delete">
         <default key="_controller">management.controller_rest.rest_team_controller:deleteAction</default>
         <requirement key="id">\d+</requirement>
     </route>
+    <route id="rest.teams_get" path="/teams/{id}" methods="get">
+        <default key="_controller">management.controller_rest.rest_team_controller:individualListAction</default>
+        <requirement key="id">\d+</requirement>
+    </route>
 
     <route id="rest.users_post" path="/users" methods="post">
         <default key="_controller">management.controller_rest.rest_user_controller:createAction</default>
     </route>
-    <route id="rest.users_get" path="/users" methods="get">
+    <route id="rest.users_collection_get" path="/users" methods="get">
         <default key="_controller">management.controller_rest.rest_user_controller:listAction</default>
     </route>
     <route id="rest.users_delete" path="/users/{id}" methods="delete">

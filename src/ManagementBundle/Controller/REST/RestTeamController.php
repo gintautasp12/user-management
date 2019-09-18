@@ -95,4 +95,23 @@ class RestTeamController
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function individualListAction(int $id)
+    {
+        $team = $this->teamRepository->findOneBy(['id' => $id]);
+        if ($team === null) {
+            return new JsonResponse(['error' => [
+                'message' => 'Such team does not exist'
+            ]], Response::HTTP_NOT_FOUND);
+        }
+
+        return JsonResponse::fromJsonString(
+            $this->serializer->serialize($team, $this->teamNormalizer),
+            Response::HTTP_OK
+        );
+    }
 }
