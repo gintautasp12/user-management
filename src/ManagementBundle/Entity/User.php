@@ -44,6 +44,6 @@ class User
 
     public function removeFromTeam(Team $team)
     {
-        $this->teams->remove($team);
+        $this->teams->removeElement($team);
     }
 }

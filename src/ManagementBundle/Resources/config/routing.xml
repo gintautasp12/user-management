@@ -22,6 +22,11 @@
         <requirement key="teamId">\d+</requirement>
         <requirement key="userId">\d+</requirement>
     </route>
+    <route id="rest.teams_add_user" path="/teams/{teamId}/users/{userId}" methods="post">
+        <default key="_controller">management.controller_rest.rest_team_controller:addToTeamAction</default>
+        <requirement key="teamId">\d+</requirement>
+        <requirement key="userId">\d+</requirement>
+    </route>
 
     <route id="rest.users_post" path="/users" methods="post">
         <default key="_controller">management.controller_rest.rest_user_controller:createAction</default>

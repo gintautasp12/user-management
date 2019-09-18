@@ -57,7 +57,7 @@ class Team
 
     public function removeUser(User $user)
     {
-        $this->users->remove($user);
+        $this->users->removeElement($user);
         $user->removeFromTeam($this);
     }
 }

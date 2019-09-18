@@ -4,7 +4,9 @@ namespace ManagementBundle\Controller\REST;
 
 use Doctrine\ORM\EntityManager;
 use ManagementBundle\Entity\Team;
+use ManagementBundle\Entity\User;
 use ManagementBundle\Repository\TeamRepository;
+use ManagementBundle\Repository\UserRepository;
 use ManagementBundle\Serializer\ArrayNormalizer;
 use ManagementBundle\Serializer\Serializer;
 use ManagementBundle\Serializer\TeamNormalizer;
@@ -19,13 +21,15 @@ class RestTeamController
     private $teamRepository;
     private $arrayNormalizer;
     private $serializer;
+    private $userRepository;
 
     public function __construct(
         EntityManager $entityManager,
         TeamNormalizer $teamNormalizer,
         TeamRepository $teamRepository,
         ArrayNormalizer $arrayNormalizer,
-        Serializer $serializer
+        Serializer $serializer,
+        UserRepository $userRepository
     )
     {
         $this->entityManager = $entityManager;
@@ -33,6 +37,7 @@ class RestTeamController
         $this->teamRepository = $teamRepository;
         $this->arrayNormalizer = $arrayNormalizer;
         $this->serializer = $serializer;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -119,7 +124,8 @@ class RestTeamController
      * @param int $teamId
      * @param int $userId
      * @return JsonResponse
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function removeFromTeamAction(int $teamId, int $userId)
     {
@@ -130,15 +136,56 @@ class RestTeamController
                 'message' => 'Such team does not exist.'
             ]], Response::HTTP_NOT_FOUND);
         }
-
-        $user = $this->teamRepository->findUserById($userId);
+        /** @var User $user */
+        $user = $this->userRepository->findOneBy(['id' => $userId]);
         if ($user === null) {
             return new JsonResponse(['error' => [
                 'message' => 'Such user does not exist.'
             ]], Response::HTTP_NOT_FOUND);
         }
 
+        if (!in_array($user, $team->getUsers())) {
+            return new JsonResponse(['error' => [
+                'message' => 'This user does not belong to this team.'
+            ]], Response::HTTP_NOT_FOUND);
+        }
+
         $team->removeUser($user);
+        $this->entityManager->flush();
+
+        return JsonResponse::fromJsonString(
+            $this->serializer->serialize($team, $this->teamNormalizer),
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     * @param int $teamId
+     * @param int $userId
+     * @return JsonResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function addToTeamAction(int $teamId, int $userId)
+    {
+        /** @var Team $team */
+        $team = $this->teamRepository->findOneBy(['id' => $teamId]);
+        if ($team === null) {
+            return new JsonResponse(['error' => [
+                'message' => 'Such team does not exist.'
+            ]], Response::HTTP_NOT_FOUND);
+        }
+
+        /** @var User $user */
+        $user = $this->userRepository->findOneBy(['id' => $userId]);
+        if ($user === null) {
+            return new JsonResponse(['error' => [
+                'message' => 'Such user does not exist.'
+            ]], Response::HTTP_NOT_FOUND);
+        }
+
+        $team->addUser($user);
+        $this->entityManager->flush();
 
         return JsonResponse::fromJsonString(
             $this->serializer->serialize($team, $this->teamNormalizer),

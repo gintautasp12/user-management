@@ -12,18 +12,4 @@ use Doctrine\ORM\EntityRepository;
  */
 class TeamRepository extends EntityRepository
 {
-    /**
-     * @param int $id
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function findUserById(int $id)
-    {
-        return $this->createQueryBuilder('t')
-            ->leftJoin('t.users', 'u')
-            ->where('u = :userId')
-            ->setParameter('userId', $id)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
 }
