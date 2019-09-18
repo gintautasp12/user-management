@@ -3,6 +3,7 @@
 namespace ManagementBundle\Controller\REST;
 
 use Doctrine\ORM\EntityManager;
+use ManagementBundle\Http\RestErrorResponse;
 use ManagementBundle\Repository\UserRepository;
 use ManagementBundle\Serializer\Serializer;
 use ManagementBundle\Serializer\UserNormalizer;
@@ -72,12 +73,9 @@ class RestUserController
     {
         $user = $this->userRepository->findOneBy(['id' => $id]);
         if ($user == null) {
-            return new JsonResponse([
-                'error' => [
-                    'message' => 'Such user does not exist'
-                ]
-            ], Response::HTTP_NOT_FOUND);
+            return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
+
         $this->entityManager->remove($user);
         $this->entityManager->flush();
 
@@ -92,9 +90,7 @@ class RestUserController
     {
         $user = $this->userRepository->findOneBy(['id' => $id]);
         if ($user === null) {
-            return new JsonResponse(['error' => [
-                'message' => 'Such user does not exist.'
-            ]], Response::HTTP_NOT_FOUND);
+            return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
 
         return JsonResponse::fromJsonString(

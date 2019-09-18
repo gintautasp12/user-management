@@ -5,6 +5,7 @@ namespace ManagementBundle\Controller\REST;
 use Doctrine\ORM\EntityManager;
 use ManagementBundle\Entity\Team;
 use ManagementBundle\Entity\User;
+use ManagementBundle\Http\RestErrorResponse;
 use ManagementBundle\Repository\TeamRepository;
 use ManagementBundle\Repository\UserRepository;
 use ManagementBundle\Serializer\ArrayNormalizer;
@@ -84,15 +85,11 @@ class RestTeamController
         /** @var Team $team */
         $team = $this->teamRepository->findOneBy(['id' => $id]);
         if ($team === null) {
-            return new JsonResponse(['error' => [
-                'message' => 'Such team does not exist'
-            ]], Response::HTTP_NOT_FOUND);
+            return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
 
         if (count($team->getUsers()) !== 0) {
-            return new JsonResponse(['error' => [
-                'message' => 'This team contains members'
-            ]], Response::HTTP_METHOD_NOT_ALLOWED);
+            return new RestErrorResponse('This team contains members.', Response::HTTP_BAD_REQUEST);
         }
 
         $this->entityManager->remove($team);
@@ -109,9 +106,7 @@ class RestTeamController
     {
         $team = $this->teamRepository->findOneBy(['id' => $id]);
         if ($team === null) {
-            return new JsonResponse(['error' => [
-                'message' => 'Such team does not exist'
-            ]], Response::HTTP_NOT_FOUND);
+            return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
 
         return JsonResponse::fromJsonString(
@@ -132,22 +127,19 @@ class RestTeamController
         /** @var Team $team */
         $team = $this->teamRepository->findOneBy(['id' => $teamId]);
         if ($team === null) {
-            return new JsonResponse(['error' => [
-                'message' => 'Such team does not exist.'
-            ]], Response::HTTP_NOT_FOUND);
+            return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
         /** @var User $user */
         $user = $this->userRepository->findOneBy(['id' => $userId]);
         if ($user === null) {
-            return new JsonResponse(['error' => [
-                'message' => 'Such user does not exist.'
-            ]], Response::HTTP_NOT_FOUND);
+            return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
 
         if (!in_array($user, $team->getUsers())) {
-            return new JsonResponse(['error' => [
-                'message' => 'This user does not belong to this team.'
-            ]], Response::HTTP_BAD_REQUEST);
+            return new RestErrorResponse(
+                'This user does not belong to this team.',
+                Response::HTTP_BAD_REQUEST
+            );
         }
 
         $team->removeUser($user);
@@ -171,23 +163,20 @@ class RestTeamController
         /** @var Team $team */
         $team = $this->teamRepository->findOneBy(['id' => $teamId]);
         if ($team === null) {
-            return new JsonResponse(['error' => [
-                'message' => 'Such team does not exist.'
-            ]], Response::HTTP_NOT_FOUND);
+            return new RestErrorResponse('Such team does not exist.', Response::HTTP_NOT_FOUND);
         }
 
         /** @var User $user */
         $user = $this->userRepository->findOneBy(['id' => $userId]);
         if ($user === null) {
-            return new JsonResponse(['error' => [
-                'message' => 'Such user does not exist.'
-            ]], Response::HTTP_NOT_FOUND);
+            return new RestErrorResponse('Such user does not exist.', Response::HTTP_NOT_FOUND);
         }
 
         if (in_array($user, $team->getUsers())) {
-            return new JsonResponse(['error' => [
-                'message' => 'This user already belongs to this group.'
-            ]], Response::HTTP_BAD_REQUEST);
+            return new RestErrorResponse(
+                'This user already belongs the given group.',
+                Response::HTTP_BAD_REQUEST
+            );
         }
 
         $team->addUser($user);
