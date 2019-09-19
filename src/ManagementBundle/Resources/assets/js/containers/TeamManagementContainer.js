@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {REST_TEAMS} from '../config';
+import ErrorMessages from '../components/ErrorMessage/ErrorMessages';
 
 class TeamManagementContainer extends React.Component {
     constructor(props) {
@@ -61,11 +62,7 @@ class TeamManagementContainer extends React.Component {
                                 Add
                             </button>
                         </div>
-                        <div>
-                            {errors.map(error => (
-                                <span key={error.property} className="text-danger">{error.message}</span>
-                            ))}
-                        </div>
+                        <ErrorMessages errors={errors}/>
                     </div>
                     <div className="list">
                         <ul className="list-group-flush">
