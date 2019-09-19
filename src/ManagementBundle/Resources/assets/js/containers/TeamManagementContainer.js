@@ -75,9 +75,7 @@ class TeamManagementContainer extends React.Component {
                         </div>
                         <ErrorMessages errors={errors}/>
                     </div>
-                    <div className="list">
-                        <TeamList teams={teams} onDelete={(id) => this.handleTeamDelete(id)}/>
-                    </div>
+                    <TeamList teams={teams} onDelete={(id) => this.handleTeamDelete(id)}/>
                 </aside>
                 <aside className="team-container--half"></aside>
             </main>
