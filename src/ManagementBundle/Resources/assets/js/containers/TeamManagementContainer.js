@@ -40,6 +40,16 @@ class TeamManagementContainer extends React.Component {
         });
     }
 
+    handleTeamDelete(id) {
+        const { teams } = this.state;
+        this.setState({ errors: [] });
+        axios.delete(`${REST_TEAMS}/${id}`)
+            .then(res => this.setState({
+                teams: teams.filter(team => team.id !== id),
+            }))
+            .catch(err => this.setState({ errors: [err.response.data.errors] }));
+    }
+
     render() {
         const { teams, title, errors } = this.state;
 
@@ -67,7 +77,16 @@ class TeamManagementContainer extends React.Component {
                     <div className="list">
                         <ul className="list-group-flush">
                             {teams.map(team => (
-                                <li key={team.id} className="list-group-item">{team.title}</li>
+                                <li key={team.id} className="list-group-item d-flex justify-content-between">
+                                    <p>{team.title}</p>
+                                    <span>Members: {team.users.length}</span>
+                                    <button
+                                        disabled={team.users.length}
+                                        onClick={() => this.handleTeamDelete(team.id)}
+                                        className="btn btn-sm btn-outline-danger">
+                                        Delete
+                                    </button>
+                                </li>
                             ))}
                         </ul>
                     </div>

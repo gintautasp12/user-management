@@ -8,7 +8,7 @@ class RestErrorResponse extends JsonResponse
 {
     public function __construct(string $message, int $statusCode)
     {
-        parent::__construct(['error' => [
+        parent::__construct(['errors' => [
             'message' => $message
         ]], $statusCode);
     }
