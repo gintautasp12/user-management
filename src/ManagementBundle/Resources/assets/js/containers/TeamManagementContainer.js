@@ -17,6 +17,10 @@ class TeamManagementContainer extends React.Component {
     }
 
     componentDidMount() {
+        this.fetchTeams();
+    }
+
+    fetchTeams() {
         axios.get(REST_TEAMS)
             .then(res => this.setState({
                 teams: res.data.data
@@ -63,8 +67,14 @@ class TeamManagementContainer extends React.Component {
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
 
-    handleUserRemove(id) {
-        console.log(id);
+    handleUserRemove(team, user) {
+        this.setState({ errors: [] });
+        axios.delete(`${REST_TEAMS}/${team}/users/${user}`)
+            .then(res => this.setState({
+                    selectedTeam: res.data.data,
+                }, () => this.fetchTeams()
+            ))
+            .catch(err => console.log(err.response.data));
     }
 
     render() {
@@ -109,7 +119,7 @@ class TeamManagementContainer extends React.Component {
                         </div>
                     </div>
                     <div>
-                        <UserList users={selectedTeam.users} onRemove={(id) => this.handleUserRemove(id)}/>
+                        <UserList team={selectedTeam} onRemove={(team, user) => this.handleUserRemove(team, user)}/>
                     </div>
                 </aside>
             </main>
