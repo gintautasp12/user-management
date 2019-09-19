@@ -41,7 +41,8 @@ class TeamManagementContainer extends React.Component {
         });
     }
 
-    handleTeamDelete(id) {
+    handleTeamDelete(e, id) {
+        e.stopPropagation();
         const { teams } = this.state;
         this.setState({ errors: [] });
         axios.delete(`${REST_TEAMS}/${id}`)
@@ -49,6 +50,10 @@ class TeamManagementContainer extends React.Component {
                 teams: teams.filter(team => team.id !== id),
             }))
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
+    }
+
+    handleTeamSelect(id) {
+        console.log(id);
     }
 
     render() {
@@ -75,7 +80,11 @@ class TeamManagementContainer extends React.Component {
                         </div>
                         <ErrorMessages errors={errors}/>
                     </div>
-                    <TeamList teams={teams} onDelete={(id) => this.handleTeamDelete(id)}/>
+                    <TeamList
+                        teams={teams}
+                        onDelete={(e, id) => this.handleTeamDelete(e, id)}
+                        onSelect={(id) => this.handleTeamSelect(id)}
+                    />
                 </aside>
                 <aside className="team-container--half"></aside>
             </main>

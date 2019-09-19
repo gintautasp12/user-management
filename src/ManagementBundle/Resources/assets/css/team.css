@@ -15,6 +15,14 @@
     padding: 0;
 }
 
+.list .list-group-item {
+    cursor: pointer;
+}
+
+.list .list-group-item:hover {
+    background: #eee;
+}
+
 .input-container {
     display: flex;
     justify-content: space-between;
