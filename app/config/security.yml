@@ -30,8 +30,9 @@ security:
                 path: /logout
 
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_USER, IS_AUTHENTICATED_FULLY]
+        ROLE_ADMIN: [ROLE_USER]
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN}
+        - { path: ^/rest/v1, roles: ROLE_ADMIN}
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY}
