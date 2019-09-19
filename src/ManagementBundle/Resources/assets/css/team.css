@@ -15,11 +15,11 @@
     padding: 0;
 }
 
-.list .list-group-item {
+.list-group-item.hoverable {
     cursor: pointer;
 }
 
-.list .list-group-item:hover {
+.list-group-item.hoverable:hover {
     background: #eee;
 }
 

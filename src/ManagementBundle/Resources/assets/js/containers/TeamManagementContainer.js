@@ -3,6 +3,7 @@ import axios from 'axios';
 import {REST_TEAMS} from '../config';
 import ErrorMessages from '../components/ErrorMessage/ErrorMessages';
 import TeamList from '../components/List/TeamList';
+import UserList from '../components/List/UserList';
 
 class TeamManagementContainer extends React.Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class TeamManagementContainer extends React.Component {
             teams: [],
             title: '',
             errors: [],
-            selectedTeam: null
+            selectedTeam: { users: [] },
         };
     }
 
@@ -62,12 +63,16 @@ class TeamManagementContainer extends React.Component {
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
 
+    handleUserRemove(id) {
+        console.log(id);
+    }
+
     render() {
-        const { teams, title, errors } = this.state;
+        const { teams, title, errors, selectedTeam } = this.state;
 
         return (
             <main className="team-container">
-                <aside className="team-container--half">
+                <aside className="team-container--half p-4">
                     <h5>Add new team</h5>
                     <div className="form-group">
                         <div className="input-container">
@@ -92,7 +97,21 @@ class TeamManagementContainer extends React.Component {
                         onSelect={(id) => this.handleTeamSelect(id)}
                     />
                 </aside>
-                <aside className="team-container--half"></aside>
+                <aside className="team-container--half p-4">
+                    <div className="team-info">
+                        <div>
+                            <h5 className="d-inline">Team: </h5>
+                            <p className="d-inline">{selectedTeam.title}</p>
+                        </div>
+                        <div>
+                            <p className="d-inline">Members: </p>
+                            <span>{selectedTeam.users.length}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <UserList users={selectedTeam.users} onRemove={(id) => this.handleUserRemove(id)}/>
+                    </div>
+                </aside>
             </main>
         )
     }

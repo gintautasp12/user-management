@@ -7,7 +7,7 @@ const TeamList = ({ teams, onDelete, onSelect }) => (
                 <li
                     key={team.id}
                     onClick={() => onSelect(team.id)}
-                    className="list-group-item d-flex justify-content-between align-items-center"
+                    className="list-group-item d-flex justify-content-between align-items-center hoverable"
                 >
                     <p className="m-0">{team.title}</p>
                     <span>Members: {team.users.length}</span>
