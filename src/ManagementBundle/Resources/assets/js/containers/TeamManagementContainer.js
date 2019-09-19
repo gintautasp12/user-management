@@ -22,12 +22,15 @@ class TeamManagementContainer extends React.Component {
 
     handleAdd() {
         const { title, teams } = this.state;
+        this.setState({ errors: [] });
         axios.post(REST_TEAMS, { title })
             .then(res => this.setState({
                 teams: [...teams, res.data.data],
                 title: '',
             }))
-            .catch(err => console.log(err.response));
+            .catch(err => this.setState({
+                errors: err.response.data.errors,
+            }));
     }
 
     handleTitleChange(e) {
@@ -37,7 +40,7 @@ class TeamManagementContainer extends React.Component {
     }
 
     render() {
-        const { teams, title } = this.state;
+        const { teams, title, errors } = this.state;
 
         return (
             <main className="team-container">
@@ -57,6 +60,11 @@ class TeamManagementContainer extends React.Component {
                                 className="btn btn-primary">
                                 Add
                             </button>
+                        </div>
+                        <div>
+                            {errors.map(error => (
+                                <span key={error.property} className="text-danger">{error.message}</span>
+                            ))}
                         </div>
                     </div>
                     <div className="list">
