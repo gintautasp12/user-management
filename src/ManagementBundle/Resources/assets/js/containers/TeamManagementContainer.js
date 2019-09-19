@@ -120,6 +120,7 @@ class TeamManagementContainer extends React.Component {
                     </div>
                     <div>
                         <UserList team={selectedTeam} onRemove={(team, user) => this.handleUserRemove(team, user)}/>
+                        <button className="btn btn-outline-secondary">Add a member</button>
                     </div>
                 </aside>
             </main>
