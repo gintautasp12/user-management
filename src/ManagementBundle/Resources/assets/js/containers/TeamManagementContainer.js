@@ -108,20 +108,25 @@ class TeamManagementContainer extends React.Component {
                     />
                 </aside>
                 <aside className="team-container--half p-4">
-                    <div className="team-info">
-                        <div>
-                            <h5 className="d-inline">Team: </h5>
-                            <p className="d-inline">{selectedTeam.title}</p>
-                        </div>
-                        <div>
-                            <p className="d-inline">Members: </p>
-                            <span>{selectedTeam.users.length}</span>
-                        </div>
-                    </div>
-                    <div>
-                        <UserList team={selectedTeam} onRemove={(team, user) => this.handleUserRemove(team, user)}/>
-                        <button className="btn btn-outline-secondary">Add a member</button>
-                    </div>
+                    {selectedTeam.id && (
+                        <>
+                            <div className="team-info">
+                                <div>
+                                    <h5 className="d-inline">Team: </h5>
+                                    <p className="d-inline">{selectedTeam.title}</p>
+                                </div>
+                                <div>
+                                    <p className="d-inline">Members: </p>
+                                    <span>{selectedTeam.users.length}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <UserList team={selectedTeam}
+                                          onRemove={(team, user) => this.handleUserRemove(team, user)}/>
+                                <button className="btn btn-outline-secondary">Add a member</button>
+                            </div>
+                        </>
+                    )}
                 </aside>
             </main>
         )
