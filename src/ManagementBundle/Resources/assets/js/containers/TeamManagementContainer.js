@@ -50,8 +50,13 @@ class TeamManagementContainer extends React.Component {
                                 type="text"
                                 className="form-control"
                                 value={title}
-                                placeholder="Enter title"/>
-                            <button onClick={() => this.handleAdd()} className="btn btn-primary">Add</button>
+                                placeholder="Enter title"
+                            />
+                            <button
+                                onClick={() => this.handleAdd()}
+                                className="btn btn-primary">
+                                Add
+                            </button>
                         </div>
                     </div>
                     <div className="list">
