@@ -74,7 +74,7 @@ class TeamManagementContainer extends React.Component {
                     selectedTeam: res.data.data,
                 }, () => this.fetchTeams()
             ))
-            .catch(err => console.log(err.response.data));
+            .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
 
     render() {
