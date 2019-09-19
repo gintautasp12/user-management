@@ -11,6 +11,7 @@ class TeamManagementContainer extends React.Component {
             teams: [],
             title: '',
             errors: [],
+            selectedTeam: null
         };
     }
 
@@ -53,7 +54,12 @@ class TeamManagementContainer extends React.Component {
     }
 
     handleTeamSelect(id) {
-        console.log(id);
+        this.setState({ errors: [] });
+        axios.get(`${REST_TEAMS}/${id}`)
+            .then(res => this.setState({
+                selectedTeam: res.data.data,
+            }))
+            .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
 
     render() {
