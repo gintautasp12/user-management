@@ -1,0 +1,25 @@
+.team-container {
+    display: flex;
+    padding: 20px;
+    width: 100%;
+    margin-top: 10vh;
+}
+
+.team-container--half {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.list .list-group-flush {
+    padding: 0;
+}
+
+.input-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-container .form-control {
+    width: 80%;
+}
