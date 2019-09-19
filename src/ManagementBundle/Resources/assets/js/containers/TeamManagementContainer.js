@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {REST_TEAMS} from '../config';
 import ErrorMessages from '../components/ErrorMessage/ErrorMessages';
+import TeamList from '../components/List/TeamList';
 
 class TeamManagementContainer extends React.Component {
     constructor(props) {
@@ -75,20 +76,7 @@ class TeamManagementContainer extends React.Component {
                         <ErrorMessages errors={errors}/>
                     </div>
                     <div className="list">
-                        <ul className="list-group-flush">
-                            {teams.map(team => (
-                                <li key={team.id} className="list-group-item d-flex justify-content-between">
-                                    <p>{team.title}</p>
-                                    <span>Members: {team.users.length}</span>
-                                    <button
-                                        disabled={team.users.length}
-                                        onClick={() => this.handleTeamDelete(team.id)}
-                                        className="btn btn-sm btn-outline-danger">
-                                        Delete
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
+                        <TeamList teams={teams} onDelete={(id) => this.handleTeamDelete(id)}/>
                     </div>
                 </aside>
                 <aside className="team-container--half"></aside>
