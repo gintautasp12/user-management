@@ -83,7 +83,7 @@ class TeamManagementContainer extends React.Component {
         return (
             <main className="team-container">
                 <aside className="team-container--half p-4">
-                    <h5>Add new team</h5>
+                    <h5>Create new team</h5>
                     <div className="form-group">
                         <div className="input-container">
                             <input
@@ -91,12 +91,12 @@ class TeamManagementContainer extends React.Component {
                                 type="text"
                                 className="form-control"
                                 value={title}
-                                placeholder="Enter title"
+                                placeholder="Enter team title"
                             />
                             <button
                                 onClick={() => this.handleAdd()}
                                 className="btn btn-primary">
-                                Add
+                                Create
                             </button>
                         </div>
                         <ErrorMessages errors={errors}/>
