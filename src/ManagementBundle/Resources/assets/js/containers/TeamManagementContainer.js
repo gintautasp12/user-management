@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {REST_TEAMS} from '../config';
 
 class TeamManagementContainer extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class TeamManagementContainer extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('/rest/v1/teams')
+        axios.get(REST_TEAMS)
             .then(res => this.setState({
                 teams: res.data.data
             }))
@@ -21,7 +22,7 @@ class TeamManagementContainer extends React.Component {
 
     handleAdd() {
         const { title, teams } = this.state;
-        axios.post('/rest/v1/teams', { title })
+        axios.post(REST_TEAMS, { title })
             .then(res => this.setState({
                 teams: [...teams, res.data.data],
                 title: '',
