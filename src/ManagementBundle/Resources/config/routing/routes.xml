@@ -12,4 +12,7 @@
     <route id="management.logout" path="/logout">
         <default key="_controller">management.controller.auth_controller:logoutAction</default>
     </route>
+    <route id="management.admin_users" path="/users">
+        <default key="_controller">management.controller.auth_controller:adminPageAction</default>
+    </route>
 </routes>
