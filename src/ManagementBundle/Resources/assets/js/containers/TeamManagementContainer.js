@@ -110,7 +110,10 @@ class TeamManagementContainer extends React.Component {
             .then(res => {
                 this.setState({
                     userFieldValue: '',
-                    filteredUsers: users.filter(user => user.id !== selectedUser.id),
+                    filteredUsers: users.filter(
+                        user => user.id !== selectedUser.id
+                            && !res.data.data.users.map(user => user.id).includes(user.id)
+                    ),
                     selectedUser: {},
                 });
                 this.fetchTeam(selectedTeam.id);
