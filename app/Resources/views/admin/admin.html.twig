@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('build/css/management.css') }}"/>
 {% endblock %}
 {% block body %}
-    <div id="root"></div>
+    <div data-admin-id="{{ app.user.id }}" id="root"></div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

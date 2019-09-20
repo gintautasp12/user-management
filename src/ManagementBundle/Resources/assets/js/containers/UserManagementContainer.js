@@ -20,7 +20,10 @@ class UserManagementContainer extends React.Component {
 
     fetchUsers() {
         axios.get(REST_USERS)
-            .then(res => this.setState({ users: res.data.data }))
+            .then(res => this.setState({
+                users: res.data.data.filter(user =>
+                    user.id !== Number(document.getElementById('root').dataset.adminId))
+            }))
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
 
