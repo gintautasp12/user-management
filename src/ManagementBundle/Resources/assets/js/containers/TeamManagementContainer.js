@@ -124,7 +124,8 @@ class TeamManagementContainer extends React.Component {
     fetchUsers() {
         axios.get(REST_USERS)
             .then(res => this.setState({
-                users: res.data.data
+                users: res.data.data,
+                filteredUsers: res.data.data,
             }))
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
