@@ -1,11 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import {REST_TEAMS, REST_USERS} from '../config';
-import ErrorMessages from '../components/ErrorMessage/ErrorMessages';
 import TeamList from '../components/List/TeamList';
 import UserList from '../components/List/UserList';
 import TeamDescription from '../components/TeamInfo/TeamDescription';
-import UserAssignForm from '../components/TeamInfo/UserAssignForm';
+import UserAssignForm from '../components/Form/UserAssignForm';
+import CollapseToggleButton from '../components/UI/Button/CollapseToggleButton';
+import InputForm from '../components/Form/InputForm';
 
 class TeamManagementContainer extends React.Component {
     constructor(props) {
@@ -148,23 +149,13 @@ class TeamManagementContainer extends React.Component {
             <main className="team-container col-lg-8 col-md-10 m-auto mt-md-5">
                 <aside className="team-box p-4">
                     <h5>Create new team</h5>
-                    <div className="form-group">
-                        <div className="input-container">
-                            <input
-                                onChange={e => this.handleTitleChange(e)}
-                                type="text"
-                                className="form-control mr-3"
-                                value={title}
-                                placeholder="Enter team title"
-                            />
-                            <button
-                                onClick={() => this.handleAdd()}
-                                className="btn btn-primary">
-                                Create
-                            </button>
-                        </div>
-                        <ErrorMessages errors={errors}/>
-                    </div>
+                    <InputForm
+                        errors={errors}
+                        inputValue={title}
+                        submitText="Create"
+                        placeholder="Enter team title"
+                        onSubmit={() => this.handleAdd()}
+                        onChange={(e) => this.handleTitleChange(e)}/>
                     <TeamList
                         teams={teams}
                         onDelete={(e, id) => this.handleTeamDelete(e, id)}
@@ -178,25 +169,18 @@ class TeamManagementContainer extends React.Component {
                             <div>
                                 <UserList
                                     team={selectedTeam}
-                                    onRemove={(team, user) => this.handleUserRemove(team, user)}
-                                />
-                                <button
+                                    onRemove={(team, user) => this.handleUserRemove(team, user)}/>
+                                <CollapseToggleButton
                                     onClick={() => this.fetchUsers()}
-                                    data-toggle="collapse"
-                                    type="button"
-                                    data-target="#addForm"
-                                    aria-controls="addForm"
-                                    aria-expanded="false"
-                                    className="btn btn-outline-secondary">
-                                    Assign user
-                                </button>
+                                    target="#addForm"
+                                    ariaControls="addForm">Assign user
+                                </CollapseToggleButton>
                                 <UserAssignForm
                                     users={filteredUsers}
                                     onInputChange={(e) => this.handleUserFieldChange(e)}
                                     onSelect={(user) => this.handleUserSelect(user)}
                                     onSubmit={() => this.handleAddUser()}
-                                    inputValue={userFieldValue}
-                                />
+                                    inputValue={userFieldValue}/>
                             </div>
                         </div>
                     )}
