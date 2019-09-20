@@ -2,11 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import {REST_TEAMS, REST_USERS} from '../config';
 import TeamList from '../components/List/TeamList';
-import UserList from '../components/List/UserList';
 import TeamDescription from '../components/TeamInfo/TeamDescription';
 import UserAssignForm from '../components/Form/UserAssignForm';
 import CollapseToggleButton from '../components/UI/Button/CollapseToggleButton';
 import InputForm from '../components/Form/InputForm';
+import TeamUserList from '../components/List/TeamUserList';
 
 class TeamManagementContainer extends React.Component {
     constructor(props) {
@@ -171,7 +171,7 @@ class TeamManagementContainer extends React.Component {
                         <div className="bg-light h-100 p-4">
                             <TeamDescription team={selectedTeam}/>
                             <div>
-                                <UserList
+                                <TeamUserList
                                     team={selectedTeam}
                                     onRemove={(team, user) => this.handleUserRemove(team, user)}/>
                                 <CollapseToggleButton
