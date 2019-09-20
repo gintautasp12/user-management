@@ -127,7 +127,14 @@ class TeamManagementContainer extends React.Component {
     }
 
     render() {
-        const { teams, title, errors, selectedTeam, filteredUsers, userFieldValue } = this.state;
+        const {
+            teams,
+            title,
+            errors,
+            selectedTeam,
+            filteredUsers,
+            userFieldValue
+        } = this.state;
 
         return (
             <main className="team-container col-lg-8 col-md-10 m-auto mt-md-5">
@@ -138,7 +145,7 @@ class TeamManagementContainer extends React.Component {
                             <input
                                 onChange={e => this.handleTitleChange(e)}
                                 type="text"
-                                className="form-control"
+                                className="form-control mr-3"
                                 value={title}
                                 placeholder="Enter team title"
                             />
