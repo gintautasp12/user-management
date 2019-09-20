@@ -4,6 +4,8 @@ import {REST_TEAMS, REST_USERS} from '../config';
 import ErrorMessages from '../components/ErrorMessage/ErrorMessages';
 import TeamList from '../components/List/TeamList';
 import UserList from '../components/List/UserList';
+import TeamDescription from '../components/TeamInfo/TeamDescription';
+import UserAssignForm from '../components/TeamInfo/UserAssignForm';
 
 class TeamManagementContainer extends React.Component {
     constructor(props) {
@@ -172,16 +174,7 @@ class TeamManagementContainer extends React.Component {
                 <aside className="team-box">
                     {selectedTeam.id && (
                         <div className="bg-light p-4 h-100">
-                            <div className="team-info">
-                                <div>
-                                    <h5 className="d-inline">Team: </h5>
-                                    <p className="d-inline">{selectedTeam.title}</p>
-                                </div>
-                                <div className="mb-3">
-                                    <p className="d-inline">Members: </p>
-                                    <span>{selectedTeam.users.length}</span>
-                                </div>
-                            </div>
+                            <TeamDescription team={selectedTeam}/>
                             <div>
                                 <UserList
                                     team={selectedTeam}
@@ -197,30 +190,13 @@ class TeamManagementContainer extends React.Component {
                                     className="btn btn-outline-secondary">
                                     Assign user
                                 </button>
-                                <div className="collapse" id="addForm">
-                                    <input
-                                        onChange={e => this.handleUserFieldChange(e)}
-                                        value={userFieldValue}
-                                        type="text"
-                                        className="form-control mt-3"
-                                        placeholder="Search for name"
-                                    />
-                                    <select multiple className="form-control mt-3">
-                                        {filteredUsers.map(user => (
-                                            <option
-                                                onClick={() => this.handleUserSelect(user)}
-                                                key={user.id}
-                                                value={user.id}>
-                                                {user.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    <button
-                                        onClick={() => this.handleAddUser()}
-                                        className="btn btn-primary mt-3">
-                                        Assign
-                                    </button>
-                                </div>
+                                <UserAssignForm
+                                    users={filteredUsers}
+                                    onInputChange={(e) => this.handleUserFieldChange(e)}
+                                    onSelect={(user) => this.handleUserSelect(user)}
+                                    onSubmit={() => this.handleAddUser()}
+                                    inputValue={userFieldValue}
+                                />
                             </div>
                         </div>
                     )}
