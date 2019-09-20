@@ -64,6 +64,8 @@ class TeamManagementContainer extends React.Component {
     }
 
     handleTeamSelect(id) {
+        const { selectedTeam } = this.state;
+        if (selectedTeam.id === id) return;
         this.setState({ errors: [] });
         axios.get(`${REST_TEAMS}/${id}`)
             .then(res => this.setState({
@@ -98,9 +100,7 @@ class TeamManagementContainer extends React.Component {
 
     handleAddUser() {
         const { selectedTeam, selectedUser, users } = this.state;
-        if (!selectedUser.id) {
-            return;
-        }
+        if (!selectedUser.id) return;
         this.setState({ errors: [] });
         axios.post(`${REST_TEAMS}/${selectedTeam.id}/users/${selectedUser.id}`)
             .then(res => {
