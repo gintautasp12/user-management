@@ -98,6 +98,9 @@ class TeamManagementContainer extends React.Component {
 
     handleAddUser() {
         const { selectedTeam, selectedUser, users } = this.state;
+        if (!selectedUser.id) {
+            return;
+        }
         this.setState({ errors: [] });
         axios.post(`${REST_TEAMS}/${selectedTeam.id}/users/${selectedUser.id}`)
             .then(res => {
