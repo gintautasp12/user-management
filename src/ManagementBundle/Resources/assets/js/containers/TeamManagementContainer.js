@@ -82,7 +82,7 @@ class TeamManagementContainer extends React.Component {
 
         return (
             <main className="team-container">
-                <aside className="team-container--half p-4">
+                <aside className="team-box p-4">
                     <h5>Create new team</h5>
                     <div className="form-group">
                         <div className="input-container">
@@ -107,9 +107,9 @@ class TeamManagementContainer extends React.Component {
                         onSelect={(id) => this.handleTeamSelect(id)}
                     />
                 </aside>
-                <aside className="team-container--half p-4">
+                <aside className="team-box">
                     {selectedTeam.id && (
-                        <>
+                        <div className="bg-light p-4">
                             <div className="team-info">
                                 <div>
                                     <h5 className="d-inline">Team: </h5>
@@ -125,7 +125,7 @@ class TeamManagementContainer extends React.Component {
                                           onRemove={(team, user) => this.handleUserRemove(team, user)}/>
                                 <button className="btn btn-outline-secondary">Add a member</button>
                             </div>
-                        </>
+                        </div>
                     )}
                 </aside>
             </main>

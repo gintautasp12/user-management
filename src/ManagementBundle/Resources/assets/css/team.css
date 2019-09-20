@@ -5,7 +5,7 @@
     margin-top: 10vh;
 }
 
-.team-container--half {
+.team-box {
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -30,4 +30,14 @@
 
 .input-container .form-control {
     width: 80%;
+}
+
+@media only screen and (max-width: 600px) {
+    .team-container {
+        flex-direction: column;
+    }
+
+    .team-box {
+        width: 90%;
+    }
 }
