@@ -30,8 +30,8 @@ class TeamManagementContainer extends React.Component {
     fetchTeams() {
         axios.get(REST_TEAMS)
             .then(res => this.setState({
+                selectedTeam: res.data.data.length !== 0 ? res.data.data[0] : { users: [] },
                 teams: res.data.data,
-                selectedTeam: res.data.data[0],
             }))
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
