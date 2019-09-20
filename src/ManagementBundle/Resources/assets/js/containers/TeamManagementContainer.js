@@ -37,7 +37,7 @@ class TeamManagementContainer extends React.Component {
 
     handleCreateTeam() {
         const { title, teams } = this.state;
-        this.setState({ errors: [] });
+        this.resetErrors();
         axios.post(REST_TEAMS, { title })
             .then(res => this.setState({
                 teams: [...teams, res.data.data],
@@ -57,7 +57,7 @@ class TeamManagementContainer extends React.Component {
     handleTeamDelete(e, id) {
         e.stopPropagation();
         const { teams } = this.state;
-        this.setState({ errors: [] });
+        this.resetErrors();
         axios.delete(`${REST_TEAMS}/${id}`)
             .then(res => this.setState({
                 teams: teams.filter(team => team.id !== id),
@@ -69,7 +69,7 @@ class TeamManagementContainer extends React.Component {
     handleTeamSelect(id) {
         const { selectedTeam } = this.state;
         if (selectedTeam.id === id) return;
-        this.setState({ errors: [] });
+        this.resetErrors();
         this.fetchTeam(id);
     }
 
@@ -82,7 +82,7 @@ class TeamManagementContainer extends React.Component {
     }
 
     handleUserRemove(team, user) {
-        this.setState({ errors: [] });
+        this.resetErrors();
         axios.delete(`${REST_TEAMS}/${team}/users/${user}`)
             .then(res => this.setState({
                     selectedTeam: res.data.data,
@@ -104,7 +104,7 @@ class TeamManagementContainer extends React.Component {
     handleAddUser() {
         const { selectedTeam, selectedUser, users } = this.state;
         if (!selectedUser.id) return;
-        this.setState({ errors: [] });
+        this.resetErrors();
         axios.post(`${REST_TEAMS}/${selectedTeam.id}/users/${selectedUser.id}`)
             .then(res => {
                 this.setState({
@@ -133,6 +133,10 @@ class TeamManagementContainer extends React.Component {
         this.setState({
             selectedUser: user,
         });
+    }
+
+    resetErrors() {
+        this.setState({ errors: [] });
     }
 
     render() {
