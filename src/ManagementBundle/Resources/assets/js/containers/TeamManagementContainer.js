@@ -81,11 +81,15 @@ class TeamManagementContainer extends React.Component {
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
 
-    handleUserRemove(team, user) {
+    handleUserRemove(teamId, userId) {
+        const { users } = this.state;
         this.resetErrors();
-        axios.delete(`${REST_TEAMS}/${team}/users/${user}`)
+        axios.delete(`${REST_TEAMS}/${teamId}/users/${userId}`)
             .then(res => this.setState({
                     selectedTeam: res.data.data,
+                    filteredUsers: users.filter(user =>
+                        !res.data.data.users.map(user => user.id).includes(user.id)
+                    )
                 }, () => this.fetchTeams()
             ))
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
