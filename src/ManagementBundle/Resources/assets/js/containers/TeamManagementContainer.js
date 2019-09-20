@@ -91,13 +91,9 @@ class TeamManagementContainer extends React.Component {
     handleUserFieldChange(e) {
         const { users, selectedTeam } = this.state;
         this.setState({
-            filteredUsers: users.filter(
-                user => {
-                    const userIds = selectedTeam.users.map(user => user.id);
-                    return user.name.toLowerCase().includes(e.target.value.toLowerCase())
-                        && !userIds.includes(user.id);
-                }
-            ),
+            filteredUsers: users.filter(user =>
+                user.name.toLowerCase().includes(e.target.value.toLowerCase())
+                && !selectedTeam.users.map(user => user.id).includes(user.id)),
             userFieldValue: e.target.value,
         });
     }
