@@ -81,7 +81,7 @@ class TeamManagementContainer extends React.Component {
         const { teams, title, errors, selectedTeam } = this.state;
 
         return (
-            <main className="team-container">
+            <main className="team-container col-lg-8 col-md-10 m-auto mt-md-5">
                 <aside className="team-box p-4">
                     <h5>Create new team</h5>
                     <div className="form-group">
@@ -109,7 +109,7 @@ class TeamManagementContainer extends React.Component {
                 </aside>
                 <aside className="team-box">
                     {selectedTeam.id && (
-                        <div className="bg-light p-4">
+                        <div className="bg-light p-4 h-100">
                             <div className="team-info">
                                 <div>
                                     <h5 className="d-inline">Team: </h5>
