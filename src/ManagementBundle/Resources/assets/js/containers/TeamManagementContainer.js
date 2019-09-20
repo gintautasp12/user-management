@@ -147,7 +147,7 @@ class TeamManagementContainer extends React.Component {
 
         return (
             <main className="d-flex w-100 mt-md-5 p-md-2 col-lg-8 col-md-10 m-auto mt-md-5 team-container">
-                <aside className="team-box p-4">
+                <aside className="d-flex flex-column p-4 aside">
                     <h5>Create new team</h5>
                     <InputForm
                         errors={errors}
@@ -162,9 +162,9 @@ class TeamManagementContainer extends React.Component {
                         onSelect={(id) => this.handleTeamSelect(id)}
                     />
                 </aside>
-                <aside className="team-box">
+                <aside className="d-flex flex-column aside">
                     {selectedTeam.id && (
-                        <div className="bg-light p-4 h-100">
+                        <div className="bg-light h-100 p-4">
                             <TeamDescription team={selectedTeam}/>
                             <div>
                                 <UserList

@@ -10,11 +10,11 @@ const InputForm = ({
     submitText
 }) => (
     <div className="form-group">
-        <div className="input-container">
+        <div className="d-flex justify-content-between">
             <input
                 onChange={e => onChange(e)}
                 type="text"
-                className="form-control mr-3"
+                className="form-control mr-3 w-75"
                 value={inputValue}
                 placeholder={placeholder}
             />

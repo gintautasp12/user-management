@@ -1,7 +1,5 @@
-.team-box {
+.aside {
     width: 50%;
-    display: flex;
-    flex-direction: column;
 }
 
 .list .list-group-flush {
@@ -16,21 +14,12 @@
     background: #eee;
 }
 
-.input-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.input-container .form-control {
-    width: 80%;
-}
-
 @media only screen and (max-width: 759px) {
     .team-container {
         flex-direction: column;
     }
 
-    .team-box {
+    .aside {
         width: 100%;
     }
 }
