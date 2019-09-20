@@ -60,4 +60,11 @@ class Team
         $this->users->removeElement($user);
         $user->removeFromTeam($this);
     }
+
+    public function setId($id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }
