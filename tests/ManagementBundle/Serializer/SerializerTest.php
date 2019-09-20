@@ -67,7 +67,9 @@ class SerializerTest extends TestCase
         $expectedUserResult = (new User())->setName('Test User');
 
         $this->assertEquals($expectedTeamResult, $serializer->deserialize('[]', $teamNormalizer));
+        $this->assertInstanceOf(Team::class, $serializer->deserialize('[]', $teamNormalizer));
         $this->assertEquals($expectedUserResult, $serializer->deserialize('[]', $userNormalizer));
+        $this->assertInstanceOf(User::class, $serializer->deserialize('[]', $userNormalizer));
     }
 
     public function testSerializeCollection()
