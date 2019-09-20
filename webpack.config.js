@@ -19,7 +19,7 @@ Encore
      */
     .addEntry('js/app', './src/ManagementBundle/Resources/assets/js/app.js')
     .addStyleEntry('css/main', './src/ManagementBundle/Resources/assets/css/main.css')
-    .addStyleEntry('css/team', './src/ManagementBundle/Resources/assets/css/team.css')
+    .addStyleEntry('css/management', './src/ManagementBundle/Resources/assets/css/management.css')
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
