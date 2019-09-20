@@ -35,7 +35,7 @@ class TeamManagementContainer extends React.Component {
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
 
-    handleAdd() {
+    handleCreateTeam() {
         const { title, teams } = this.state;
         this.setState({ errors: [] });
         axios.post(REST_TEAMS, { title })
@@ -154,7 +154,7 @@ class TeamManagementContainer extends React.Component {
                         inputValue={title}
                         submitText="Create"
                         placeholder="Enter team title"
-                        onSubmit={() => this.handleAdd()}
+                        onSubmit={() => this.handleCreateTeam()}
                         onChange={(e) => this.handleTitleChange(e)}/>
                     <TeamList
                         teams={teams}
