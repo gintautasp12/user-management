@@ -58,6 +58,7 @@ class TeamManagementContainer extends React.Component {
         axios.delete(`${REST_TEAMS}/${id}`)
             .then(res => this.setState({
                 teams: teams.filter(team => team.id !== id),
+                selectedTeam: { users: [] },
             }))
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
