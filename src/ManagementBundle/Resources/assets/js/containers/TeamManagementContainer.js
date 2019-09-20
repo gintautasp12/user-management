@@ -32,7 +32,7 @@ class TeamManagementContainer extends React.Component {
             .then(res => this.setState({
                 teams: res.data.data
             }))
-            .catch(err => console.log(err.response));
+            .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
 
     handleAdd() {
@@ -126,7 +126,7 @@ class TeamManagementContainer extends React.Component {
             .then(res => this.setState({
                 users: res.data.data
             }))
-            .catch(err => console.log(err.response.data.errors));
+            .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
 
     handleUserSelect(user) {
