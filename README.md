@@ -1,4 +1,4 @@
-### User Management
+### User Management App ![alt text](https://scontent-waw1-1.xx.fbcdn.net/v/t1.15752-9/70408001_2223391487786755_1184256589566050304_n.png?_nc_cat=102&_nc_oc=AQn0_Ofng0dGzQY22Pby2Gpcc-T4ehS_yZdg4q_yHQQ0bSFEfxMWwiilxebafhxEWRQ&_nc_ht=scontent-waw1-1.xx&oh=a1a1a25cfdd027d59a8b45166bd80d32&oe=5E06B765)
 This repository contains REST API-driven user management Symfony app.
 
 ##### Instructions
