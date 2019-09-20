@@ -67,6 +67,10 @@ class TeamManagementContainer extends React.Component {
         const { selectedTeam } = this.state;
         if (selectedTeam.id === id) return;
         this.setState({ errors: [] });
+        this.fetchTeam(id);
+    }
+
+    fetchTeam(id) {
         axios.get(`${REST_TEAMS}/${id}`)
             .then(res => this.setState({
                 selectedTeam: res.data.data,
@@ -109,7 +113,7 @@ class TeamManagementContainer extends React.Component {
                     filteredUsers: users.filter(user => user.id !== selectedUser.id),
                     selectedUser: {},
                 });
-                this.handleTeamSelect(selectedTeam.id);
+                this.fetchTeam(selectedTeam.id);
                 this.fetchTeams();
             })
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
