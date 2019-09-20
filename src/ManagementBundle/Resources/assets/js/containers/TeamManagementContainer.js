@@ -146,7 +146,7 @@ class TeamManagementContainer extends React.Component {
         } = this.state;
 
         return (
-            <main className="team-container col-lg-8 col-md-10 m-auto mt-md-5">
+            <main className="d-flex w-100 mt-md-5 p-md-2 col-lg-8 col-md-10 m-auto mt-md-5 team-container">
                 <aside className="team-box p-4">
                     <h5>Create new team</h5>
                     <InputForm
