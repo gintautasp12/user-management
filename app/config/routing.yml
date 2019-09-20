@@ -1,0 +1,3 @@
+app:
+    resource: '@ManagementBundle/Resources/config/routing.xml'
+    type: xml

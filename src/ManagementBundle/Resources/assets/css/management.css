@@ -1,0 +1,29 @@
+.aside {
+    width: 50%;
+}
+
+.list .list-group-flush {
+    padding: 0;
+}
+
+.list-group-item.hoverable {
+    cursor: pointer;
+}
+
+.list-group-item.hoverable:hover {
+    background: #eee;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 759px) {
+    .team-container {
+        flex-direction: column;
+    }
+
+    .aside {
+        width: 100%;
+    }
+}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}Manage Users{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/css/management.css') }}"/>
+{% endblock %}
+{% block body %}
+    <div data-admin-id="{{ app.user.id }}" id="root"></div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <imports>
+        <import resource="parameters.xml"/>
+        <import resource="serializer/serializers.xml"/>
+        <import resource="controller/controllers.xml"/>
+    </imports>
+
+    <services>
+        <service id="management.validator.entity_validator" class="ManagementBundle\Validator\EntityValidator">
+            <argument type="service" id="validator"/>
+        </service>
+        <service id="management.data_fixtures.app_fixtures" class="ManagementBundle\DataFixtures\AppFixtures">
+            <tag name="doctrine.fixture.orm"/>
+            <argument type="service" id="security.password_encoder"/>
+        </service>
+    </services>
+</container>
