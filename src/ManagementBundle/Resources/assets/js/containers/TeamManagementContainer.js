@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {REST_TEAMS} from '../config';
+import {REST_TEAMS, REST_USERS} from '../config';
 import ErrorMessages from '../components/ErrorMessage/ErrorMessages';
 import TeamList from '../components/List/TeamList';
 import UserList from '../components/List/UserList';
@@ -13,6 +13,10 @@ class TeamManagementContainer extends React.Component {
             title: '',
             errors: [],
             selectedTeam: { users: [] },
+            users: [],
+            filteredUsers: [],
+            selectedUser: {},
+            userFieldValue: '',
         };
     }
 
@@ -77,8 +81,52 @@ class TeamManagementContainer extends React.Component {
             .catch(err => this.setState({ errors: [err.response.data.errors] }));
     }
 
+    handleUserFieldChange(e) {
+        const { users, selectedTeam } = this.state;
+        this.setState({
+            filteredUsers: users.filter(
+                user => {
+                    const userIds = selectedTeam.users.map(user => user.id);
+                    return user.name.toLowerCase().includes(e.target.value.toLowerCase())
+                        && !userIds.includes(user.id);
+                }
+            ),
+            userFieldValue: e.target.value,
+        });
+    }
+
+    handleAddUser() {
+        const { selectedTeam, selectedUser, users } = this.state;
+        this.setState({ errors: [] });
+        axios.post(`${REST_TEAMS}/${selectedTeam.id}/users/${selectedUser.id}`)
+            .then(res => {
+                this.setState({
+                    userFieldValue: '',
+                    filteredUsers: users.filter(user => user.id !== selectedUser.id),
+                    selectedUser: {},
+                });
+                this.handleTeamSelect(selectedTeam.id);
+                this.fetchTeams();
+            })
+            .catch(err => this.setState({ errors: [err.response.data.errors] }));
+    }
+
+    fetchUsers() {
+        axios.get(REST_USERS)
+            .then(res => this.setState({
+                users: res.data.data
+            }))
+            .catch(err => console.log(err.response.data.errors));
+    }
+
+    handleUserSelect(user) {
+        this.setState({
+            selectedUser: user,
+        });
+    }
+
     render() {
-        const { teams, title, errors, selectedTeam } = this.state;
+        const { teams, title, errors, selectedTeam, filteredUsers, userFieldValue } = this.state;
 
         return (
             <main className="team-container col-lg-8 col-md-10 m-auto mt-md-5">
@@ -115,15 +163,50 @@ class TeamManagementContainer extends React.Component {
                                     <h5 className="d-inline">Team: </h5>
                                     <p className="d-inline">{selectedTeam.title}</p>
                                 </div>
-                                <div>
+                                <div className="mb-3">
                                     <p className="d-inline">Members: </p>
                                     <span>{selectedTeam.users.length}</span>
                                 </div>
                             </div>
                             <div>
-                                <UserList team={selectedTeam}
-                                          onRemove={(team, user) => this.handleUserRemove(team, user)}/>
-                                <button className="btn btn-outline-secondary">Add a member</button>
+                                <UserList
+                                    team={selectedTeam}
+                                    onRemove={(team, user) => this.handleUserRemove(team, user)}
+                                />
+                                <button
+                                    onClick={() => this.fetchUsers()}
+                                    data-toggle="collapse"
+                                    type="button"
+                                    data-target="#addForm"
+                                    aria-controls="addForm"
+                                    aria-expanded="false"
+                                    className="btn btn-outline-secondary">
+                                    Assign user
+                                </button>
+                                <div className="collapse" id="addForm">
+                                    <input
+                                        onChange={e => this.handleUserFieldChange(e)}
+                                        value={userFieldValue}
+                                        type="text"
+                                        className="form-control mt-3"
+                                        placeholder="Search for name"
+                                    />
+                                    <select multiple className="form-control mt-3">
+                                        {filteredUsers.map(user => (
+                                            <option
+                                                onClick={() => this.handleUserSelect(user)}
+                                                key={user.id}
+                                                value={user.id}>
+                                                {user.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <button
+                                        onClick={() => this.handleAddUser()}
+                                        className="btn btn-primary mt-3">
+                                        Assign
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     )}
