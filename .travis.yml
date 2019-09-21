@@ -1,0 +1,11 @@
+sudo: false
+language: php
+php:
+  - 7.2
+services:
+  - mysql
+before_script:
+  - composer install --no-interaction --prefer-dist
+script:
+  - bin/php-cs-fixer fix --dry-run ./src --rules=@PSR2
+  - vendor/bin/simple-phpunit
