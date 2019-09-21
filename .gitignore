@@ -45,3 +45,6 @@
 
 #php-cs-fixer
 .php_cs.cache
+
+#Docker files
+/docker/mysql-data
