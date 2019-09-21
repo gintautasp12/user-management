@@ -27,8 +27,7 @@ class RestUserController
         EntityManager $entityManager,
         EntityValidator $validator,
         TeamNormalizer $teamNormalizer
-    )
-    {
+    ) {
         $this->serializer = $serializer;
         $this->userNormalizer = $userNormalizer;
         $this->entityManager = $entityManager;

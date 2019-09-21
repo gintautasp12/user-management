@@ -28,8 +28,7 @@ class RestTeamController
         ArrayNormalizer $arrayNormalizer,
         Serializer $serializer,
         EntityValidator $validator
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->teamNormalizer = $teamNormalizer;
         $this->arrayNormalizer = $arrayNormalizer;
