@@ -1,4 +1,5 @@
 echo "[1/7] Building docker containers..."
+cp .env.dist .env
 docker-compose up -d --build
 echo "[2/7] Installing composer dependencies..."
 docker exec user-management-php-fpm composer install
