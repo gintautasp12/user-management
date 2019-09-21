@@ -3,16 +3,22 @@
 This repository contains REST API-driven user management Symfony app.
 
 ##### Instructions
-1. Install dependencies with `composer install` and `yarn install`.
-2. Build assets, `yarn encore dev`.
+
+To launch the app simply issue `bash scripts/start.sh` command.
+
+Or follow the process manually:
+1. Build and start docker containers `docker-compose -d --build`.
+2. Install dependencies with `docker exec user-management-php-fpm composer install && yarn && yarn encore dev`.
 3. Setup database:
-    * `bin/console d:d:c` 
-    * `bin/console d:m:m -n` 
-    * `bin/console d:f:l -n`
-4. Start local server `bin/console server:start`.
-5. Log in as an admin with following credentials:
+    * `docker exec user-management-php-fpm bin/console d:d:c` 
+    * `docker exec user-management-php-fpm bin/console d:m:m -n` 
+    * `docker exec user-management-php-fpm bin/console d:f:l -n`
+4. Log into admin dashboard with following credentials:
     * username: `admin`
     * password: `password`
+
+##### Running tests
+Run tests with `vendor/bin/simple-phpunit`.
 
 ##### REST API
 Endpoints: 
