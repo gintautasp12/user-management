@@ -4,7 +4,7 @@ This repository contains REST API-driven user management Symfony app.
 
 ##### Instructions
 
-To launch the app simply issue `bash scripts/start.sh` command.
+To launch the app simply issue `bash scripts/start.sh` command. To stop - `docker-compose down`.
 
 Or follow the process manually:
 1. Build and start docker containers `docker-compose -d --build`.
