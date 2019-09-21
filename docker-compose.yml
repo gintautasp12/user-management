@@ -10,7 +10,6 @@ services:
       - ./docker/mysql-data/:/var/lib/mysql
     environment:
        - MYSQL_ALLOW_EMPTY_PASSWORD=1
-    user: 1000:1000
 
   nginx:
     image: nginx:1.15.3-alpine
