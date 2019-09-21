@@ -14,8 +14,7 @@ class TeamNormalizer implements NormalizerInterface, DenormalizerInterface
         ArrayNormalizer $arrayNormalizer,
         UserNormalizer $userNormalizer,
         string $baseHref
-    )
-    {
+    ) {
         $this->arrayNormalizer = $arrayNormalizer;
         $this->userNormalizer = $userNormalizer;
         $this->baseHref = $baseHref;
