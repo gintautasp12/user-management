@@ -7,9 +7,10 @@ services:
     ports:
       - 127.0.0.1:3307:3306
     volumes:
-      - ./docker/mysql-data/:/var/lib/mysql
+      - db:/var/lib/mysql
     environment:
        - MYSQL_ALLOW_EMPTY_PASSWORD=1
+       - MYSQL_
 
   nginx:
     image: nginx:1.15.3-alpine
@@ -36,3 +37,6 @@ services:
       - .env
     depends_on:
       - mysql
+
+volumes:
+  db:
